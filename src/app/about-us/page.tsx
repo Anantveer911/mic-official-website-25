@@ -74,7 +74,7 @@ const MysteryCard = ({
         width: 320px;
         height: 290px;
         border: 10px solid;
-        border-radius: 32px;
+        il: 0;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -90,11 +90,11 @@ const MysteryCard = ({
       .inner-panel {
         position: absolute;
         left: 5px; top: 5px; right: 5px; bottom: 5px;
-        border-radius: 15px;
+        border-radius: 0;
         z-index: 8;
       }
       .corner-dot {
-        width: 22px; height: 22px; border-radius: 50%;
+        width: 22px; height: 22px; border-radius: 0;
         position: absolute; z-index: 3;
       }
       .top-left { top: 28px; left: 28px;}
