@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { CloudProps } from '../app/leaderboard/_components/types';
 
-// Animated cloud movement with viewport bounds
 export function useCloudFloat({
   baseTop,
   baseLeft,
@@ -10,22 +9,36 @@ export function useCloudFloat({
   phase = 0,
 }: CloudProps) {
   const [top, setTop] = useState(baseTop);
-  const frame = useRef(0);
+  const lastRef = useRef<number | null>(null);
+  const phaseAcc = useRef<number>(phase);
 
   useEffect(() => {
+    phaseAcc.current = phase;
+    lastRef.current = null;
+
     let running = true;
-    function animate() {
-      frame.current += 1;
-      const t = frame.current / 60; // 60fps
-      const newTop = Number(baseTop) + Math.sin(t * speed + phase) * amplitude;
-      // Clamp to viewport bounds
+    function animate(now: number) {
+      if (!running) return;
+      if (lastRef.current == null) {
+        lastRef.current = now;
+      }
+      const dt = (now - lastRef.current) / 1000;
+      lastRef.current = now;
+
+      phaseAcc.current += dt * speed;
+
+      const newTop = Number(baseTop) + Math.sin(phaseAcc.current) * amplitude;
       const clampedTop = Math.max(-100, Math.min(window.innerHeight - 50, newTop));
       setTop(clampedTop);
-      if (running) requestAnimationFrame(animate);
+
+      requestAnimationFrame(animate);
     }
-    animate();
+
+    const id = requestAnimationFrame(animate);
     return () => {
       running = false;
+      cancelAnimationFrame(id);
+      lastRef.current = null;
     };
   }, [baseTop, amplitude, speed, phase]);
 

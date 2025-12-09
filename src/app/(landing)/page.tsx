@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Cartridge from "./Cartridge";
 import Console from "./Console";
 import LoadingPage from "./loading";
+import { Clouds } from "@/app/leaderboard/_components";
 
 export default function Landing() {
   const [inserted, setInserted] = useState(false);
@@ -84,6 +85,11 @@ export default function Landing() {
           backgroundSize: "20px 20px",
         }}
       />
+
+      {/* Floating clouds with even distribution and delta-time animation */}
+      <div className="absolute inset-0 z-5 pointer-events-none">
+        <Clouds />
+      </div>
 
       {/* Centered container with fixed aspect ratio */}
       <div className="relative w-full max-w-[400px] aspect-[3/2] z-10">

@@ -70,6 +70,12 @@ export const STATIC_CLOUDS: Omit<CloudImageProps, 'baseLeft'>[] = [
   { src: '/images/cloud3.png', width: 240, height: 125, baseTop: 760, amplitude: 18, speed: 1.2, phase: 3 },
   { src: '/images/cloud3.png', width: 240, height: 125, baseTop: 640, amplitude: 16, speed: 1.0, phase: 4 },
   { src: '/images/cloud1.png', width: 324, height: 170, baseTop: -13, amplitude: 20, speed: 0.97, phase: 5 },
+  { src: '/images/cloud2.png', width: 300, height: 160, baseTop: 40, amplitude: 12, speed: 0.9, phase: 6 },
+  { src: '/images/cloud1.png', width: 280, height: 150, baseTop: 220, amplitude: 18, speed: 1.05, phase: 7 },
+  { src: '/images/cloud3.png', width: 200, height: 110, baseTop: 320, amplitude: 10, speed: 1.3, phase: 8 },
+  { src: '/images/cloud1.png', width: 340, height: 170, baseTop: 520, amplitude: 24, speed: 0.88, phase: 9 },
+  { src: '/images/cloud2.png', width: 260, height: 140, baseTop: 420, amplitude: 15, speed: 1.15, phase: 10 },
+  { src: '/images/cloud3.png', width: 220, height: 120, baseTop: 80, amplitude: 13, speed: 1.0, phase: 11 },
 ];
 
 export function getThemeColors(isDarkMode: boolean) {
