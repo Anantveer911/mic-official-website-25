@@ -152,6 +152,14 @@ const MysteryCard = ({
   </div>
 );
 
+// Star positions - scattered across the background
+const STAR_COUNT = 80;
+const STAR_POSITIONS = Array.from({ length: STAR_COUNT }).map((_, i) => ({
+  top: Math.floor((i * 137) % 95) + Math.floor(i * 23) % 5, // percentage values (vh)
+  left: Math.floor((i * 241) % 98) + Math.floor(i * 19) % 3, // percentage values (vw)
+  size: Math.random() * 3 + 4, // Size between 4-7px
+}));
+
 const AboutUsPage: React.FC = () => {
   // Adjusted clouds positions - higher starts and re-mixed cloud images
   const cloudPositions = [
@@ -201,6 +209,25 @@ const AboutUsPage: React.FC = () => {
           position: "relative"
         }}
       >
+        {/* Stars scattered across the background */}
+        {STAR_POSITIONS.map((star, i) => (
+          <Image
+            key={`star-${i}`}
+            src="/images/dot.png"
+            alt=""
+            width={star.size}
+            height={star.size}
+            style={{
+              position: "absolute",
+              top: `${star.top}vh`,
+              left: `${star.left}vw`,
+              zIndex: 1,
+              pointerEvents: "none",
+              userSelect: "none",
+              opacity: 0.9,
+            }}
+          />
+        ))}
         {/* Animated Clouds */}
         {cloudPositions.map((pos, i) => (
           <Image
