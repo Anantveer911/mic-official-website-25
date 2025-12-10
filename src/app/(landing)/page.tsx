@@ -124,7 +124,7 @@ export default function Landing() {
 
       {/* Status messages */}
       {inserted && !poweredOn && (
-        <p className="text-green-400 text-sm absolute bottom-24 left-1/2 -translate-x-1/2 animate-pulse z-50 pointer-events-none select-none">
+        <p className="text-green-300 text-base font-semibold absolute bottom-24 left-1/2 -translate-x-1/2 animate-pulse z-50 pointer-events-none select-none drop-shadow-[0_0_8px_rgba(134,239,172,0.8)]">
           Press Power to start
         </p>
       )}

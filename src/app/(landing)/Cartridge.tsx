@@ -14,8 +14,8 @@ export default function Cartridge({
   return (
     <div
       className={clsx(
-  "absolute left-[52%] -translate-x-1/2 w-[20%] transition-all duration-700 cursor-pointer z-40",
-        inserted ? "top-[-4%]" : "top-[-50%]"
+        "absolute left-[50%] -translate-x-1/2 w-[20%] transition-all duration-700 cursor-pointer z-40",
+        inserted ? "top-[-2%]" : "top-[-50%]"
       )}
       onClick={!inserted ? onClick : undefined}
       title={!inserted ? "Click to insert cartridge" : ""}
