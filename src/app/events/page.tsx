@@ -75,6 +75,9 @@ const events = [
 // Changed to avoid mutating the original array
 const sortEventsByDate = (eventsList: typeof events) => {
 	const now = new Date();
+	// Reset time to start of day for accurate date comparison
+	now.setHours(0, 0, 0, 0);
+	
 	const upcomingEvents = eventsList.filter((e) => e.startDate >= now);
 	const pastEvents = eventsList.filter((e) => e.startDate < now);
 
@@ -98,7 +101,10 @@ const formatEventDate = (date: Date): string => {
 
 // Helper function to check if event is upcoming
 const isUpcoming = (date: Date): boolean => {
-	return date >= new Date();
+	const now = new Date();
+	// Reset time to start of day for accurate date comparison
+	now.setHours(0, 0, 0, 0);
+	return date >= now;
 };
 
 type LineProps = {
