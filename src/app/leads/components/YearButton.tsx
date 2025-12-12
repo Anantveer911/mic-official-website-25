@@ -41,8 +41,9 @@ const YearButton: React.FC<YearButtonProps> = ({ selectedTenure, onTenureChange 
         style={{ 
           outline: 'none',
           height: 'auto',
-          minHeight: '50px'
-        }}
+          minHeight: '50px',
+          maxWidth: '1100px',
+        }}  
       >
         <Image
           src="/images/tenure.png"
