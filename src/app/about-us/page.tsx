@@ -74,7 +74,7 @@ const MysteryCard = ({
         width: 320px;
         height: 290px;
         border: 10px solid;
-        border-radius: 32px;
+        il: 0;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -90,11 +90,11 @@ const MysteryCard = ({
       .inner-panel {
         position: absolute;
         left: 5px; top: 5px; right: 5px; bottom: 5px;
-        border-radius: 15px;
+        border-radius: 0;
         z-index: 8;
       }
       .corner-dot {
-        width: 22px; height: 22px; border-radius: 50%;
+        width: 22px; height: 22px; border-radius: 0;
         position: absolute; z-index: 3;
       }
       .top-left { top: 28px; left: 28px;}
@@ -152,6 +152,14 @@ const MysteryCard = ({
   </div>
 );
 
+// Star positions - scattered across the background
+const STAR_COUNT = 80;
+const STAR_POSITIONS = Array.from({ length: STAR_COUNT }).map((_, i) => ({
+  top: Math.floor((i * 137) % 95) + Math.floor(i * 23) % 5, // percentage values (vh)
+  left: Math.floor((i * 241) % 98) + Math.floor(i * 19) % 3, // percentage values (vw)
+  size: Math.random() * 3 + 4, // Size between 4-7px
+}));
+
 const AboutUsPage: React.FC = () => {
   // Adjusted clouds positions - higher starts and re-mixed cloud images
   const cloudPositions = [
@@ -178,7 +186,7 @@ const AboutUsPage: React.FC = () => {
     document.documentElement.style.overflowY = "hidden";
   }, []);
 
-  const lift = 36;
+  const lift = 80;
 
   return (
     <>
@@ -201,6 +209,25 @@ const AboutUsPage: React.FC = () => {
           position: "relative"
         }}
       >
+        {/* Stars scattered across the background */}
+        {STAR_POSITIONS.map((star, i) => (
+          <Image
+            key={`star-${i}`}
+            src="/images/dot.png"
+            alt=""
+            width={star.size}
+            height={star.size}
+            style={{
+              position: "absolute",
+              top: `${star.top}vh`,
+              left: `${star.left}vw`,
+              zIndex: 1,
+              pointerEvents: "none",
+              userSelect: "none",
+              opacity: 0.9,
+            }}
+          />
+        ))}
         {/* Animated Clouds */}
         {cloudPositions.map((pos, i) => (
           <Image
@@ -232,7 +259,7 @@ const AboutUsPage: React.FC = () => {
             dotColor="#8f6200"
             title="About MIC"
             desc="The MIC at VIT Chennai is a student-led tech community under the(MLSA) program. It's a space where students explore and innovate with technologies like AI, Azure, and GitHub. Whether you're a beginner or a builder, we offer an inclusive platform for collaboration, curiosity, and hands-on learning through real-world experiences."
-            style={{ marginTop: lift }}
+            style={{ marginTop: 0 }}
           />
           <MysteryCard
             frameColor="#f7a8a8"
@@ -240,7 +267,7 @@ const AboutUsPage: React.FC = () => {
             dotColor="#a13b48"
             title="What we do!"
             desc="We host hands-on workshops, speaker sessions, and hackathons focused on Microsoft technologies like Azure, Power Platform, and Copilot. These events help students build skills, explore emerging tech, and grow into confident, well-rounded tech leaders."
-            style={{ marginTop: 0 }}
+            style={{ marginTop: lift }}
           />
           <MysteryCard
             frameColor="#7faee3"
@@ -248,7 +275,7 @@ const AboutUsPage: React.FC = () => {
             dotColor="#294771"
             title="What you get!"
             desc="We focus on leadership, teamwork, and communication alongside coding. Our club supports personal and professional growth, helping members build confidence and strong networks. No matter your background, you'll find a welcoming community that learns, creates, and grows together."
-            style={{ marginTop: lift }}
+            style={{ marginTop: 0}}
           />
         </div>
       </div>
@@ -294,7 +321,7 @@ const AboutUsPage: React.FC = () => {
           flex-direction: row;
           flex-wrap: nowrap;
           justify-content: center;
-          align-items: flex-end;
+          align-items: flex-start;
           gap: 32px;
           width: 100%;
           margin: 0 auto;
