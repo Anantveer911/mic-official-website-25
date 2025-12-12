@@ -69,26 +69,47 @@ const MysteryCard = ({
     <div className="fixed-title" style={{ color: dotColor }}><h3>{title}</h3></div>
     <div className="scrollable-content" style={{ color: dotColor }}><p>{desc}</p></div>
     <div className="hover-question"><span style={{ color: dotColor }}>?</span></div>
+    <div className="scroll-down-arrow">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke={dotColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </div>
     <style jsx>{`
       .mystery-card {
+ issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
+        width: 314.1363220214844px;
+        height: 292.04864501953125px;
+        border: 8px solid;
+        border-radius: 6.95px;
+
         width: 320px;
         height: 290px;
         border: 10px solid;
         il: 0;
+ staging
         position: relative;
         display: flex;
         flex-direction: column;
         opacity: 1;
         cursor: default;
         transition: all 0.3s ease;
-        box-shadow: 0 0 0 4px var(--dot-color-transparent, #00000050);
         overflow: hidden;
-        background-clip: padding-box;
         margin: 0;
         flex: 0 0 auto;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
       }
       .inner-panel {
         position: absolute;
+ issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
+        left: 8px; top: 8px; right: 8px; bottom: 8px;
+        border-radius: 4px;
+        z-index: 8;
+      }
+      .corner-dot {
+        width: 18px; height: 18px; border-radius: 50%;
+        position: absolute; z-index: 10;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+
         left: 5px; top: 5px; right: 5px; bottom: 5px;
         border-radius: 0;
         z-index: 8;
@@ -96,11 +117,12 @@ const MysteryCard = ({
       .corner-dot {
         width: 22px; height: 22px; border-radius: 0;
         position: absolute; z-index: 3;
+ staging
       }
-      .top-left { top: 28px; left: 28px;}
-      .top-right { top: 28px; right: 28px;}
-      .bottom-left { bottom: 28px; left: 28px;}
-      .bottom-right { bottom: 28px; right: 28px;}
+      .top-left { top: 20px; left: 20px;}
+      .top-right { top: 20px; right: 20px;}
+      .bottom-left { bottom: 20px; left: 20px;}
+      .bottom-right { bottom: 20px; right: 20px;}
       .fixed-title {
         position: absolute; top: 22px; left: 0; right: 0;
         text-align: center; z-index: 25; pointer-events: none;
@@ -108,15 +130,19 @@ const MysteryCard = ({
       }
       .fixed-title h3 {
         font-family: "Press Start 2P", monospace; font-weight: 700;
-        font-size: 1.25rem; text-transform: capitalize;
+        font-size: 0.9rem; text-transform: capitalize;
         text-shadow: 2px 2px 0 #fff, 4px 4px 0 #000; margin: 0; letter-spacing: 1px;
       }
       .scrollable-content {
-        position: absolute; top: 72px; left: 24px; right: 24px; bottom: 24px;
-        z-index: 25; overflow-y: auto; pointer-events: auto; scrollbar-width: none; -ms-overflow-style: none;
+        position: absolute; top: 60px; left: 24px; right: 24px; bottom: 40px;
+        z-index: 25; overflow-y: auto; pointer-events: auto;
         opacity: 0; transition: opacity 0.3s ease;
+        scrollbar-width: none;
+        padding-right: 8px;
       }
-      .scrollable-content::-webkit-scrollbar { display: none; }
+      .scrollable-content::-webkit-scrollbar {
+        display: none;
+      }
       .scrollable-content p {
         font-family: "IBM Plex Mono", monospace; font-size: 1.07rem; color: #444; line-height: 1.62; margin: 0; text-align: center;
       }
@@ -126,7 +152,30 @@ const MysteryCard = ({
         letter-spacing: 2px; user-select: none; margin-top: 10px; transition: opacity 0.3s ease; z-index: 20;
         pointer-events: none; opacity: 1;
       }
+      .scroll-down-arrow {
+        position: absolute;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 25;
+        animation: bounceDown 2s infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+      @keyframes bounceDown {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        40% {
+          transform: translateX(-50%) translateY(-8px);
+        }
+        60% {
+          transform: translateX(-50%) translateY(-4px);
+        }
+      }
       .group:hover .hover-question { opacity: 0; }
+      .group:hover .scroll-down-arrow { opacity: 1; }
       .group:hover .fixed-title { opacity: 1; }
       .group:hover .scrollable-content { opacity: 1; }
       @media (max-width: 900px) {
@@ -267,7 +316,11 @@ const AboutUsPage: React.FC = () => {
             dotColor="#a13b48"
             title="What we do!"
             desc="We host hands-on workshops, speaker sessions, and hackathons focused on Microsoft technologies like Azure, Power Platform, and Copilot. These events help students build skills, explore emerging tech, and grow into confident, well-rounded tech leaders."
+ issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
+            style={{ marginTop: 100 }}
+
             style={{ marginTop: lift }}
+ staging
           />
           <MysteryCard
             frameColor="#7faee3"
@@ -275,7 +328,11 @@ const AboutUsPage: React.FC = () => {
             dotColor="#294771"
             title="What you get!"
             desc="We focus on leadership, teamwork, and communication alongside coding. Our club supports personal and professional growth, helping members build confidence and strong networks. No matter your background, you'll find a welcoming community that learns, creates, and grows together."
+issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
+            style={{ marginTop: 0 }}
+
             style={{ marginTop: 0}}
+ staging
           />
         </div>
       </div>
@@ -322,7 +379,11 @@ const AboutUsPage: React.FC = () => {
           flex-wrap: nowrap;
           justify-content: center;
           align-items: flex-start;
+ issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
+          gap: 100px;
+
           gap: 32px;
+ staging
           width: 100%;
           margin: 0 auto;
           padding: 0 10px;
