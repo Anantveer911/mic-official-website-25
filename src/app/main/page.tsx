@@ -8,7 +8,7 @@ const ClubLogo = () => (
     style={{
       position: 'absolute',
       left: '50%',
-      top: 150,
+      top: 80,
       transform: 'translateX(-50%)',
       zIndex: 12,
     }}
@@ -29,7 +29,7 @@ const Cube = () => (
     style={{
       position: 'absolute',
       left: '50%',
-      top: 280,
+      top: 210,
       transform: 'translateX(-50%)',
       zIndex: 11,
     }}
@@ -39,7 +39,7 @@ const Cube = () => (
       alt="Microsoft Innovations Club Logo"
       width={700}
       height={180}
-      style={{ width: '90vw', maxWidth: 700, height: 'auto', display: 'block' }}
+      style={{ width: '70vw', maxWidth: 500, height: 'auto', display: 'block' }}
       priority
     />
   </div>

@@ -76,10 +76,17 @@ const MysteryCard = ({
     </div>
     <style jsx>{`
       .mystery-card {
+ issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
         width: 314.1363220214844px;
         height: 292.04864501953125px;
         border: 8px solid;
         border-radius: 6.95px;
+
+        width: 320px;
+        height: 290px;
+        border: 10px solid;
+        il: 0;
+ staging
         position: relative;
         display: flex;
         flex-direction: column;
@@ -93,6 +100,7 @@ const MysteryCard = ({
       }
       .inner-panel {
         position: absolute;
+ issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
         left: 8px; top: 8px; right: 8px; bottom: 8px;
         border-radius: 4px;
         z-index: 8;
@@ -101,6 +109,15 @@ const MysteryCard = ({
         width: 18px; height: 18px; border-radius: 50%;
         position: absolute; z-index: 10;
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+
+        left: 5px; top: 5px; right: 5px; bottom: 5px;
+        border-radius: 0;
+        z-index: 8;
+      }
+      .corner-dot {
+        width: 22px; height: 22px; border-radius: 0;
+        position: absolute; z-index: 3;
+ staging
       }
       .top-left { top: 20px; left: 20px;}
       .top-right { top: 20px; right: 20px;}
@@ -184,6 +201,14 @@ const MysteryCard = ({
   </div>
 );
 
+// Star positions - scattered across the background
+const STAR_COUNT = 80;
+const STAR_POSITIONS = Array.from({ length: STAR_COUNT }).map((_, i) => ({
+  top: Math.floor((i * 137) % 95) + Math.floor(i * 23) % 5, // percentage values (vh)
+  left: Math.floor((i * 241) % 98) + Math.floor(i * 19) % 3, // percentage values (vw)
+  size: Math.random() * 3 + 4, // Size between 4-7px
+}));
+
 const AboutUsPage: React.FC = () => {
   // Adjusted clouds positions - higher starts and re-mixed cloud images
   const cloudPositions = [
@@ -210,7 +235,7 @@ const AboutUsPage: React.FC = () => {
     document.documentElement.style.overflowY = "hidden";
   }, []);
 
-  const lift = 36;
+  const lift = 80;
 
   return (
     <>
@@ -233,6 +258,25 @@ const AboutUsPage: React.FC = () => {
           position: "relative"
         }}
       >
+        {/* Stars scattered across the background */}
+        {STAR_POSITIONS.map((star, i) => (
+          <Image
+            key={`star-${i}`}
+            src="/images/dot.png"
+            alt=""
+            width={star.size}
+            height={star.size}
+            style={{
+              position: "absolute",
+              top: `${star.top}vh`,
+              left: `${star.left}vw`,
+              zIndex: 1,
+              pointerEvents: "none",
+              userSelect: "none",
+              opacity: 0.9,
+            }}
+          />
+        ))}
         {/* Animated Clouds */}
         {cloudPositions.map((pos, i) => (
           <Image
@@ -272,7 +316,11 @@ const AboutUsPage: React.FC = () => {
             dotColor="#a13b48"
             title="What we do!"
             desc="We host hands-on workshops, speaker sessions, and hackathons focused on Microsoft technologies like Azure, Power Platform, and Copilot. These events help students build skills, explore emerging tech, and grow into confident, well-rounded tech leaders."
+ issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
             style={{ marginTop: 100 }}
+
+            style={{ marginTop: lift }}
+ staging
           />
           <MysteryCard
             frameColor="#7faee3"
@@ -280,7 +328,11 @@ const AboutUsPage: React.FC = () => {
             dotColor="#294771"
             title="What you get!"
             desc="We focus on leadership, teamwork, and communication alongside coding. Our club supports personal and professional growth, helping members build confidence and strong networks. No matter your background, you'll find a welcoming community that learns, creates, and grows together."
+issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
             style={{ marginTop: 0 }}
+
+            style={{ marginTop: 0}}
+ staging
           />
         </div>
       </div>
@@ -327,7 +379,11 @@ const AboutUsPage: React.FC = () => {
           flex-wrap: nowrap;
           justify-content: center;
           align-items: flex-start;
+ issue-10-Improve-Scroll-Indication-and-Box-Sizing-on-About-Us-Page
           gap: 100px;
+
+          gap: 32px;
+ staging
           width: 100%;
           margin: 0 auto;
           padding: 0 10px;
