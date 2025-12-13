@@ -84,7 +84,7 @@ const ComputerGraphic = () => (
 // Component for the social media icons
 const SocialMediaIcons = () => (
     <div className="flex justify-center items-center gap-6 mt-16 z-20">
-        <a href="https://instagram.com/microsoftinnovationsclub" target="_blank" rel="noopener noreferrer" className="w-15 h-15 md:w-17 md:h-17">
+        <a href="https://www.instagram.com/microsoft.innovations.vitc?igsh=MWdzYW9wYWwxMGdiMQ==" target="_blank" rel="noopener noreferrer" className="w-15 h-15 md:w-17 md:h-17">
             <Image src="/insta.svg" alt="Instagram logo" width={60} height={60} />
         </a>
         <a href="https://www.linkedin.com/company/microsoft-innovations-club-vitc/" target="_blank" rel="noopener noreferrer" className="w-15 h-15 md:w-17 md:h-17">
@@ -104,7 +104,7 @@ const LandingPage = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     
     const cloudPositions = [
-        { baseTop: 154, baseLeft: -12, amplitude: 25, speed: 0.8, phase: 0 },
+        { baseTop: 173, baseLeft: 1100, amplitude: 25, speed: 0.8, phase: 0 },
         { baseTop: 300, baseLeft: -400, amplitude: 35, speed: 1.1, phase: 1 },
         { baseTop: 700, baseLeft: -232, amplitude: 30, speed: 0.9, phase: 2 },
         { baseTop: 790, baseLeft: 800, amplitude: 28, speed: 1.2, phase: 3 },
@@ -194,10 +194,32 @@ const LandingPage = () => {
                         <h1 className="text-2xl font-bold leading-snug">
                             Mobile is cool but desktop is always on top
                         </h1>
-                        <p className="text-sm mt-4">
+                        <p 
+                            className="mt-4"
+                            style={{
+                                fontFamily: "'IBM Plex Mono', monospace",
+                                fontWeight: 400,
+                                fontStyle: 'normal',
+                                fontSize: '20px',
+                                lineHeight: '130%',
+                                letterSpacing: '0%',
+                                textAlign: 'center'
+                            }}
+                        >
                             Hop over to your laptop for the full experience
                         </p>
-                        <p className="text-xs mt-8">
+                        <p 
+                            className="mt-8"
+                            style={{
+                                fontFamily: "'IBM Plex Mono', monospace",
+                                fontWeight: 400,
+                                fontStyle: 'normal',
+                                fontSize: '15px',
+                                lineHeight: '105%',
+                                letterSpacing: '0%',
+                                textAlign: 'center'
+                            }}
+                        >
                             In the meantime go follow us on our social media
                         </p>
                     </div>
@@ -206,7 +228,21 @@ const LandingPage = () => {
                 {/* Social media links */}
                 <div className="flex flex-col items-center mb-8">
                     <SocialMediaIcons />
-                    <p className="text-sm mt-4">Connect With Us!</p>
+                    <p 
+                        className="mt-4"
+                        style={{
+                            fontFamily: "'IBM Plex Mono', monospace",
+                            fontWeight: 500,
+                            fontStyle: 'normal',
+                            fontSize: '20px',
+                            lineHeight: '105%',
+                            letterSpacing: '0%',
+                            textAlign: 'center',
+                            textTransform: 'capitalize'
+                        }}
+                    >
+                        Connect With Us!
+                    </p>
                 </div>
             </div>
         </div>

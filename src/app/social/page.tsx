@@ -140,11 +140,15 @@ export default function SocialPage() {
 
   // Calculate responsive sizes based on screen width
   const getResponsiveSize = (baseSize: number) => {
+    if (screenSize.width < 640) return baseSize * 0.5; // Mobile devices
     if (screenSize.width < 1024) return baseSize * 0.7; // Smaller laptops
     if (screenSize.width < 1366) return baseSize * 0.8; // Medium laptops
     if (screenSize.width < 1920) return baseSize * 0.9; // Large laptops
     return baseSize; // Very large screens
   };
+
+  // Check if mobile
+  const isMobile = screenSize.width < 640;
 
   if (pageHeight === null) return null;
 
@@ -182,7 +186,7 @@ export default function SocialPage() {
         />
       ))}
 
-      {/*  grid background */}
+      {/*  grid background - responsive for mobile */}
       <div
         style={{
           position: "absolute",
@@ -190,35 +194,47 @@ export default function SocialPage() {
           height: "100%",
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
-          backgroundSize: `${Math.max(30, screenSize.width * 0.03)}px ${Math.max(30, screenSize.width * 0.03)}px`,
+          backgroundSize: isMobile 
+            ? `${Math.max(20, screenSize.width * 0.04)}px ${Math.max(20, screenSize.width * 0.04)}px`
+            : `${Math.max(30, screenSize.width * 0.03)}px ${Math.max(30, screenSize.width * 0.03)}px`,
           zIndex: 0,
           pointerEvents: "none",
         }}
       />
 
-      {/*  clouds */}
-      {clouds.map((cloud, i) => (
-        <Image
-          key={i}
-          src={cloud.src}
-          alt={cloud.alt}
-          width={getResponsiveSize(cloud.width)}
-          height={getResponsiveSize(cloud.height)}
-          style={{
-            position: "absolute",
-            top: cloud.style.top,
-            left: cloud.style.left,
-            zIndex: cloud.style.zIndex ?? 1,
-            pointerEvents: "none",
-            filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.10))",
-            opacity: fade ? 0.7 : 1,
-            transition: "opacity 0.4s",
-            maxWidth: "20vw", // Prevent clouds from being too large
-            height: "auto",
-          }}
-          priority
-        />
-      ))}
+      {/*  clouds - responsive for mobile */}
+      {clouds.map((cloud, i) => {
+        // Adjust cloud positions for mobile to ensure visibility
+        const adjustedLeft = isMobile 
+          ? Math.max(parseFloat(cloud.style.left), 0) + '%' // Ensure clouds don't go off-screen
+          : cloud.style.left;
+        const adjustedTop = isMobile
+          ? Math.max(parseFloat(cloud.style.top), 5) + 'vh' // Keep clouds visible
+          : cloud.style.top;
+
+        return (
+          <Image
+            key={i}
+            src={cloud.src}
+            alt={cloud.alt}
+            width={getResponsiveSize(cloud.width)}
+            height={getResponsiveSize(cloud.height)}
+            style={{
+              position: "absolute",
+              top: adjustedTop,
+              left: adjustedLeft,
+              zIndex: cloud.style.zIndex ?? 1,
+              pointerEvents: "none",
+              filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.10))",
+              opacity: fade ? 0.7 : 1,
+              transition: "opacity 0.4s",
+              maxWidth: isMobile ? "35vw" : "20vw", // Smaller max width on mobile
+              height: "auto",
+            }}
+            priority
+          />
+        );
+      })}
 
 
 
@@ -376,41 +392,92 @@ export default function SocialPage() {
         );
       })}
 
-      {/* responsive social icons */}
-      {icons.map((icon, i) => (
-        <a
-          key={i}
-          href={icon.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={icon.aria}
+      {/* responsive social icons - mobile-friendly positioning */}
+      {isMobile ? (
+        // Mobile layout: Stack icons vertically on the right side
+        <div
           style={{
-            position: "absolute",
-            left: icon.left,
-            top: icon.top,
-            zIndex: 2,
+            position: "fixed",
+            right: "10px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 10,
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
             opacity: fade ? 0.7 : 1,
-            transition: "opacity 0.4s, transform 0.2s",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "scale(1.1)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "scale(1)";
+            transition: "opacity 0.4s",
           }}
         >
-          <Image 
-            src={icon.src} 
-            alt={icon.alt} 
-            width={getResponsiveSize(icon.width)} 
-            height={getResponsiveSize(icon.height)}
+          {icons.map((icon, i) => (
+            <a
+              key={i}
+              href={icon.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={icon.aria}
+              style={{
+                display: "block",
+                transition: "transform 0.2s",
+              }}
+              onTouchStart={(e) => {
+                e.currentTarget.style.transform = "scale(1.1)";
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+            >
+              <Image 
+                src={icon.src} 
+                alt={icon.alt} 
+                width={getResponsiveSize(icon.width)} 
+                height={getResponsiveSize(icon.height)}
+                style={{
+                  width: "50px",
+                  height: "auto",
+                  display: "block",
+                }}
+              />
+            </a>
+          ))}
+        </div>
+      ) : (
+        // Desktop layout: Original absolute positioning
+        icons.map((icon, i) => (
+          <a
+            key={i}
+            href={icon.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={icon.aria}
             style={{
-              maxWidth: "8vw",
-              height: "auto",
+              position: "absolute",
+              left: icon.left,
+              top: icon.top,
+              zIndex: 2,
+              opacity: fade ? 0.7 : 1,
+              transition: "opacity 0.4s, transform 0.2s",
             }}
-          />
-        </a>
-      ))}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.1)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+            }}
+          >
+            <Image 
+              src={icon.src} 
+              alt={icon.alt} 
+              width={getResponsiveSize(icon.width)} 
+              height={getResponsiveSize(icon.height)}
+              style={{
+                maxWidth: "8vw",
+                height: "auto",
+              }}
+            />
+          </a>
+        ))
+      )}
 
       {/* responsive flappy*/}
       <div
