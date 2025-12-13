@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import consoleImg from "./assets/console.png";
+import consoleImg from "./assets/consoleoff.svg";
 
 export default function Console() {
   return (

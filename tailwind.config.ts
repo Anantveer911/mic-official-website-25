@@ -14,6 +14,7 @@ const config: Config = {
       },
       fontFamily: {
         'press-start': ['"Press Start 2P"', 'cursive'],
+        'ibm-plex-mono': ['"IBM Plex Mono"', 'monospace'],
       },
     },
   },

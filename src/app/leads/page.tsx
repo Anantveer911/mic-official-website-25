@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo, useMemo } from 'react';
 import Image from 'next/image';
 import PresidentCard from './components/PresidentCard';
 import VicePresidentCard from './components/VicePresidentCard';
@@ -11,6 +11,7 @@ import RedCard from './components/RedCard';
 import BlueCard from './components/BlueCard';
 import GreenCard from './components/GreenCard';
 import YellowCard from './components/YellowCard';
+import YearButton from './components/YearButton';
 
 interface CloudFloatOptions {
   baseTop: string | number;
@@ -20,28 +21,35 @@ interface CloudFloatOptions {
   phase?: number; 
 }
 
-const leadsData = [
-  { name: 'Sanjay Dinesh', title: 'AIML', imageSrc: '/images/mic_departments/aiml_sanjay.jpg' },
-  { name: 'Abhinav Kumar V', title: 'AIML', imageSrc: '/images/mic_departments/aiml_abhinav.jpg' },
-  { name: 'Aman', title: 'CP', imageSrc: '/images/mic_departments/cp_aman.jpg' },
-  { name: 'Anmol Singh', title: 'CP', imageSrc: '/images/mic_departments/cp_anmol.jpg' },
-  { name: 'Aagney', title: 'Content', imageSrc: '/images/mic_departments/content_aagney.jpg' },
-  { name: 'Shambhavi', title: 'Content', imageSrc: '/images/mic_departments/content_shambhavi.jpg' },
-  { name: 'Pranjal Mitra', title: 'Cyber Security', imageSrc: '/images/mic_departments/cs_pranjal.jpg' },
-  { name: 'Mohammed Tahir', title: 'Cyber Security', imageSrc: '/images/mic_departments/cs_mohammed.jpg' },
-  { name: 'Gladwin Daniel', title: 'Design', imageSrc: '/images/mic_departments/design_Gladwin.jpg' },
-  { name: 'Jahnavi Nair', title: 'Design', imageSrc: '/images/mic_departments/' },
-  { name: 'Rakshana V', title: 'Development', imageSrc: '/images/mic_departments/dev_rakshana.jpg' },
-  { name: 'Mithil Girish', title: 'Development', imageSrc: '/images/mic_departments/dev_mithil.jpg' },
-  { name: 'Samyak Srijan', title: 'Entrepreneurship', imageSrc: '/images/mic_departments/entre_samyak.jpg' },
-  { name: 'Abishek B S', title: 'Entrepreneurship', imageSrc: '/images/mic_departments/entre_abhishek.jpg' },
-  { name: 'Jefrey Jose D', title: 'Management', imageSrc: '/images/mic_departments/man_jefrey.jpg' },
-  { name: 'Namita Sathish', title: 'Management', imageSrc: '/images/mic_departments/man_namitha.jpg' },
-  { name: 'Bhargavi Deshmukh', title: 'Management', imageSrc: '/images/mic_departments/man_bhargavi.jpg' },
-  { name: 'Anjum Sana', title: 'Social Media', imageSrc: '/images/mic_departments/so_sana.jpg' },
-  { name: 'Mithun Miras', title: 'Social Media', imageSrc: '/images/mic_departments/so_mithun.jpg' },
-  { name: 'Sravan Kowsik G', title: 'UI/UX', imageSrc: '/images/mic_departments/uiux_shravan.jpg' },
-  { name: 'Richika Rani', title: 'UI/UX', imageSrc: '/images/mic_departments/uiux_richika.jpg' },
+interface LeadData {
+  name: string;
+  title: string;
+  imageSrc: string;
+  tenure: string;
+}
+
+const leadsData: LeadData[] = [
+  { name: 'Sanjay Dinesh', title: 'AIML', imageSrc: '/images/mic_departments/aiml_sanjay.jpg', tenure: '2025-2026' },
+  { name: 'Abhinav Kumar V', title: 'AIML', imageSrc: '/images/mic_departments/aiml_abhinav.jpg', tenure: '2025-2026' },
+  { name: 'Aman', title: 'CP', imageSrc: '/images/mic_departments/cp_aman.jpg', tenure: '2025-2026' },
+  { name: 'Anmol Singh', title: 'CP', imageSrc: '/images/mic_departments/cp_anmol.jpg', tenure: '2025-2026' },
+  { name: 'Aagney', title: 'Content', imageSrc: '/images/mic_departments/content_aagney.jpg', tenure: '2025-2026' },
+  { name: 'Shambhavi', title: 'Content', imageSrc: '/images/mic_departments/content_shambhavi.jpg', tenure: '2025-2026' },
+  { name: 'Pranjal Mitra', title: 'Cyber Security', imageSrc: '/images/mic_departments/cs_pranjal.jpg', tenure: '2025-2026' },
+  { name: 'Mohammed Tahir', title: 'Cyber Security', imageSrc: '/images/mic_departments/cs_mohammed.jpg', tenure: '2025-2026' },
+  { name: 'Gladwin Daniel', title: 'Design', imageSrc: '/images/mic_departments/design_Gladwin.jpg', tenure: '2025-2026' },
+  { name: 'Jahnavi Nair', title: 'Design', imageSrc: '/images/mic_departments/design_Jahnavi.jpg', tenure: '2025-2026' },
+  { name: 'Rakshana V', title: 'Development', imageSrc: '/images/mic_departments/dev_rakshana.jpg', tenure: '2025-2026' },
+  { name: 'Mithil Girish', title: 'Development', imageSrc: '/images/mic_departments/dev_mithil.jpg', tenure: '2025-2026' },
+  { name: 'Samyak Srijan', title: 'Entrepreneurship', imageSrc: '/images/mic_departments/entre_samyak.jpg', tenure: '2025-2026' },
+  { name: 'Abishek B S', title: 'Entrepreneurship', imageSrc: '/images/mic_departments/entre_abhishek.jpg', tenure: '2025-2026' },
+  { name: 'Jefrey Jose D', title: 'Management', imageSrc: '/images/mic_departments/man_jefrey.jpg', tenure: '2025-2026' },
+  { name: 'Namita Sathish', title: 'Management', imageSrc: '/images/mic_departments/man_namitha.jpg', tenure: '2025-2026' },
+  { name: 'Bhargavi Deshmukh', title: 'Management', imageSrc: '/images/mic_departments/man_bhargavi.jpg', tenure: '2025-2026' },
+  { name: 'Anjum Sana', title: 'Social Media', imageSrc: '/images/mic_departments/so_sana.jpg', tenure: '2025-2026' },
+  { name: 'Mithun Miras', title: 'Social Media', imageSrc: '/images/mic_departments/so_mithun.jpg', tenure: '2025-2026' },
+  { name: 'Sravan Kowsik G', title: 'UI/UX', imageSrc: '/images/mic_departments/uiux_shravan.jpg', tenure: '2025-2026' },
+  { name: 'Richika Rani', title: 'UI/UX', imageSrc: '/images/mic_departments/uiux_richika.jpg', tenure: '2025-2026' },
 ];
 
 const cardOrder = [RedCard, BlueCard, GreenCard, YellowCard];
@@ -67,9 +75,38 @@ function useCloudFloat({ baseTop, baseLeft, amplitude = 30, speed = 1, phase = 0
   return { top, left: baseLeft };
 }
 
+const Cloud = memo(({ 
+  position, 
+  src, 
+  index, 
+  view 
+}: { 
+  position: { top: string | number; left: string | number }; 
+  src: string; 
+  index: number;
+  view: 'board' | 'departments';
+}) => (
+  <Image
+    src={src}
+    alt={`Cloud ${index + 1}`}
+    width={355}
+    height={228}
+    style={{ 
+      position: view === 'board' ? 'absolute' : 'fixed',
+      top: position.top,
+      left: position.left,
+      zIndex: 2,
+      pointerEvents: 'none'
+    }}
+  />
+));
+
+Cloud.displayName = 'Cloud';
+
 const MeetTheBoardPage: React.FC = () => {
   const [view, setView] = useState<'board' | 'departments'>('board');
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [selectedTenure, setSelectedTenure] = useState<string>('2025-2026');
 
   // Define cloud positions using hooks at the top level
   const cloudPositions = [
@@ -84,6 +121,13 @@ const MeetTheBoardPage: React.FC = () => {
     useCloudFloat({ baseTop: 127.98, baseLeft: 1600, amplitude: 27, speed: 1.3, phase: 5 }),
     useCloudFloat({ baseTop: 600, baseLeft: 1600, amplitude: 22, speed: 1.05, phase: 6 }),
   ];
+
+  const cloudImages = useMemo(() => [
+    '/images/cloud1.png', '/images/cloud2.png', '/images/cloud1.png',
+    '/images/cloud3.png', '/images/cloud3.png', '/images/cloud2.png',
+    '/images/cloud1.png', '/images/cloud3.png', '/images/cloud2.png',
+    '/images/cloud1.png'
+  ], []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -175,11 +219,14 @@ const MeetTheBoardPage: React.FC = () => {
 
   const themeColors = getThemeColors();
 
+  // Filter leads data by selected tenure
+  const filteredLeadsData = leadsData.filter(lead => lead.tenure === selectedTenure);
+
   // Prepare rows for departments view
   const rows = [];
   const cardsPerRow = 4;
-  for (let i = 0; i < leadsData.length; i += cardsPerRow) {
-    rows.push(leadsData.slice(i, i + cardsPerRow));
+  for (let i = 0; i < filteredLeadsData.length; i += cardsPerRow) {
+    rows.push(filteredLeadsData.slice(i, i + cardsPerRow));
   }
 
   return (
@@ -199,28 +246,17 @@ const MeetTheBoardPage: React.FC = () => {
             userSelect: "none",
           }}
         >
-          {/* Clouds */}
-          {(() => {
-            const cloudImages = [
-              '/images/cloud1.png', '/images/cloud2.png', '/images/cloud1.png',
-              '/images/cloud3.png', '/images/cloud3.png', '/images/cloud2.png',
-              '/images/cloud1.png', '/images/cloud3.png', '/images/cloud2.png',
-              '/images/cloud1.png'
-            ];
+          {cloudPositions.map((pos, i) => (
+            <Cloud 
+              key={i}
+              position={pos}
+              src={cloudImages[i]}
+              index={i}
+              view={view}
+            />
+          ))}
 
-            return cloudPositions.map((pos, i) => (
-              <Image
-                key={i}
-                src={cloudImages[i]}
-                alt={`Cloud ${i + 1}`}
-                width={355}
-                height={228}
-                style={{ position: 'absolute', ...pos, zIndex: 2 }}
-              />
-            ));
-          })()}
-
-          {/* Stars / Dots - only show in departments view */}
+          {/* Stars / Dots - only show in departments view
           {view === 'departments' && (
             <div style={{ position: 'absolute', top: 0, left: 0, width: 1154, height: 364, zIndex: 2 }}>
               <svg width="1154" height="364" viewBox="0 0 1154 364" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -234,13 +270,44 @@ const MeetTheBoardPage: React.FC = () => {
                 <ellipse cx="1084.3" cy="299" rx="3.98" ry="4" fill="white" />
               </svg>
             </div>
-          )}
+          )} */}
+
+          {/* Stars / Dots - show in both views */}
+          <div style={{ position: view === 'board' ? 'absolute' : 'fixed', top: 0, left: 0, width: 1154, height: 364, zIndex: 2 }}>
+            <svg width="1154" height="364" viewBox="0 0 1154 364" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="1150.02" cy="55" rx="3.98" ry="4" fill="white" />
+              <ellipse cx="949.88" cy="19" rx="3.98" ry="4" fill="white" />
+              <ellipse cx="203.12" cy="4" rx="3.98" ry="4" fill="white" />
+              <ellipse cx="134.42" cy="211" rx="3.98" ry="4" fill="white" />
+              <ellipse cx="3.98" cy="360" rx="3.98" ry="4" fill="white" />
+              <ellipse cx="486.89" cy="95" rx="3.98" ry="4" fill="white" />
+              <ellipse cx="677.07" cy="47" rx="3.98" ry="4" fill="white" />
+              <ellipse cx="1084.3" cy="299" rx="3.98" ry="4" fill="white" />
+            </svg>
+          </div>
 
           {/* Heading */}
           <h1 className={`${themeColors.textColor} font-press-start z-10 text-center mb-6`}
             style={{ fontSize: "clamp(1.5rem, 6vw, 4rem)" }}>
             Meet the Team
           </h1>
+
+          {/* Tenure Selection Button - Absolute position */}
+          {view === 'departments' && (
+            <div 
+              className="absolute z-20"
+              style={{
+                top: 'clamp(60px, 10vh, 80px)',
+                left: 'clamp(65px, 7vw, 140px)',
+                width: 'clamp(140px, 14vw, 205px)',
+              }}
+            >
+              <YearButton 
+                selectedTenure={selectedTenure}
+                onTenureChange={setSelectedTenure}
+              />
+            </div>
+          )}
 
           {/* Navigation Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8 relative z-10 w-full max-w-[720px] px-4">
@@ -253,7 +320,12 @@ const MeetTheBoardPage: React.FC = () => {
             >
               <img src="/images/button-gold.svg" className={`absolute inset-0 w-full h-full ${view === 'board' ? 'opacity-100' : 'opacity-0'}`} alt="" />
               <img src="/images/button-peach.svg" className={`absolute inset-0 w-full h-full ${view === 'board' ? 'opacity-0' : 'opacity-100'}`} alt="" />
-              <span className="font-press-start text-[16px] sm:text-[24px] text-black z-10">BOARD</span>
+              <span
+                className="font-press-start text-[16px] sm:text-[24px] text-black z-10 leading-none flex items-center justify-center"
+                style={{ lineHeight: "1", marginTop: "-16px" }}
+              >
+                BOARD
+              </span>
             </button>
 
             {/* Departments Button */}
@@ -265,7 +337,12 @@ const MeetTheBoardPage: React.FC = () => {
             >
               <img src="/images/button-gold.svg" className={`absolute inset-0 w-full h-full ${view === 'departments' ? 'opacity-100' : 'opacity-0'}`} alt="" />
               <img src="/images/button-peach.svg" className={`absolute inset-0 w-full h-full ${view === 'departments' ? 'opacity-0' : 'opacity-100'}`} alt="" />
-              <span className="font-press-start text-[16px] sm:text-[24px] text-black z-10">DEPARTMENTS</span>
+              <span
+                className="font-press-start text-[16px] sm:text-[24px] text-black z-10 leading-none flex items-center justify-center"
+                style={{ lineHeight: "1", marginTop: "-16px" }}
+              >
+                DEPARTMENTS
+              </span>
             </button>
           </div>
 
@@ -286,7 +363,8 @@ const MeetTheBoardPage: React.FC = () => {
 
           {/* Departments View */}
           {view === 'departments' && (
-            <div className="flex flex-col items-center space-y-8 relative z-10">
+            <div className="flex flex-col items-center space-y-8 relative z-10 w-full">
+              {/* Team Members Grid */}
               {rows.map((rowData, rowIndex) => (
                 <div key={rowIndex} className="flex justify-center space-x-8">
                   {rowData.map((data, index) => {

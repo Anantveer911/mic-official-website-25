@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ARCADE_WIDTH, ARCADE_HEIGHT, SANS_FONT } from './constants';
+import { ARCADE_WIDTH, ARCADE_HEIGHT } from './constants';
 import { ArcadeScreen } from './ArcadeScreen';
 import { ArcadeControls } from './ArcadeControls';
 
@@ -35,6 +35,7 @@ export function ArcadeCabinet({ scale, themeColors }: ArcadeCabinetProps) {
           transformOrigin: 'top left',
         }}
       >
+        {/* 1. The Arcade Wood Background */}
         <Image
           src="/images/arcade.svg"
           alt="Arcade Cabinet"
@@ -52,27 +53,14 @@ export function ArcadeCabinet({ scale, themeColors }: ArcadeCabinetProps) {
           }}
           priority
         />
+      
         
-        {/* Logo in top left */}
-        <Image
-          src="/Logo.svg"
-          alt="MIC Logo"
-          width={80}
-          height={80}
-          style={{
-            position: 'absolute',
-            top: 30,
-            left: 250,
-            zIndex: 3,
-            pointerEvents: 'none',
-            userSelect: 'none',
-          }}
-          priority
-        />
-        
+        {/* 2. The Screen Content */}
         <ArcadeScreen tab={tab} themeColors={themeColors} />
+        
+        {/* 3. The Joysticks and Buttons */}
         <ArcadeControls tab={tab} onTabChange={setTab} />
       </div>
     </div>
   );
-} 
+}

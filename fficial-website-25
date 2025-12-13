@@ -1,0 +1,542 @@
+[33mcommit cac8d5fba30530e372194840312cb1022baab51c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mstaging[m[33m, [m[1;31morigin/staging[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Mon Sep 8 01:02:30 2025 +0530
+
+    mobile optimization and SEO
+
+[33mcommit c8dfefb7fc2f50fa6871a36b2308cb1f1711dca2[m
+Author: V Rakshana <139635414+Raksh-iscool@users.noreply.github.com>
+Date:   Sun Sep 7 23:37:13 2025 +0530
+
+    Update Instagram link in page.tsx
+
+[33mcommit 47eba9dc5bdcb84c04f1f52752c3819caa0926e5[m
+Author: V Rakshana <139635414+Raksh-iscool@users.noreply.github.com>
+Date:   Sun Sep 7 23:33:57 2025 +0530
+
+    Update Instagram,email ,Instagram links in page.tsx
+
+[33mcommit 6ec12af3d49a33ce8c812cbb491fab0b1a0215f7[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Sep 7 22:49:26 2025 +0530
+
+    under construction: leaderboard and projects page
+
+[33mcommit 97eb6cf02dc5c2f13ec3c10867e0e9576c0112e6[m
+Author: Tarang Gupta <taranggupta3108@gmail.com>
+Date:   Sun Sep 7 20:47:45 2025 +0530
+
+    fix(about-us): improve tablet layout and disable scrolling (#20)
+    
+    Adjusted element positioning to fit tablet aspect ratio.
+    Prevented unnecessary scrolling by aligning content properly.
+
+[33mcommit f89ccb8e71bcd7eede6f0b4d33bbd6537317b765[m
+Author: VedantAmal <amalvedant@gmail.com>
+Date:   Wed Sep 3 23:17:23 2025 +0530
+
+    fix: visual fixes to multiple pages, added images to gallery (#19)
+
+[33mcommit e361516176e73538085fd7d6722788e221d76d01[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 31 04:12:31 2025 +0530
+
+    bug fix
+
+[33mcommit a994ee1313bac9a1ad784feb0a36dd19459a30a5[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 31 04:06:45 2025 +0530
+
+    feat: created mobile landing page and updated project & gallery pages
+
+[33mcommit fde1217311b6daecacfd693ebe9bc4a21e6e22af[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Mon Aug 4 01:24:18 2025 +0530
+
+    fix: build errors
+
+[33mcommit 9c4aef7e96fe58e971b22eaf7787e5453fdeafb4[m
+Merge: a3e666c 3e62aab
+Author: V Rakshana <139635414+Raksh-iscool@users.noreply.github.com>
+Date:   Sun Aug 3 23:26:52 2025 +0530
+
+    Merge pull request #18 from Raksh-iscool/main
+    
+    feat: Added dark mode and images to Department page
+
+[33mcommit 3e62aab4696e9de6635f91f853e064ea400b8ccf[m
+Author: Raksh-iscool <rakshana3110@gmail.com>
+Date:   Sun Aug 3 23:25:19 2025 +0530
+
+    feat: Added dark mode and images to Department page
+
+[33mcommit a3e666c8b42e37abf85a75969b7b96d60904a453[m
+Merge: aa24e2e 72955ef
+Author: Mithil Girish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 3 19:47:40 2025 +0530
+
+    Merge branch 'micvitc:main' into main
+
+[33mcommit 72955ef2ead13b6b0a8c8770b21529366f777b3e[m
+Author: Mithil Girish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 3 19:47:02 2025 +0530
+
+    Merge private repo  (#4)
+    
+    * Changed font, applied gradient background and boxes for events. Need to add grid layout,pacman,ghosts and do formatting
+    
+    * Changed font, applied gradient background and boxes for events. Need to add grid layout,pacman,ghosts and do formatting
+    
+    * add landing page
+    
+    * Changed borders from round to sharp, changed font for info text
+    
+    * Your descriptive commit message
+    
+    * Your descriptive commit message
+    
+    * Your descriptive commit message
+    
+    * commit done
+    
+    * hey there
+    
+    * finsihed ig
+    
+    * hey there
+    
+    * applied hover effect,need to change fonts, apply design
+    
+    * hey there
+    
+    * add landing page
+    
+    * hey guys dark almost done
+    
+    * yup
+    
+    * cloud done ig
+    
+    * pixelated corners added
+    
+    * update readme and cartridge position
+    
+    * added infinite animation for pellets, need to fix pacman and download ghosts
+    
+    * added ghosts, did some layout formatting
+    
+    * reviewed my mistakes and fixed the reptition of team member card and changed the name from meettheteampage to meettheboard page
+    
+    * added pacman gif, added borders
+    
+    * border work
+    
+    * added hover effect(again), added overlay for enlarged cards
+    
+    * made a copy for the light mode
+    
+    * tried reverting files and cleaning up
+    
+    * demo
+    
+    * bug fix and improvements: events page and leads page
+    
+    * Fix:Fix cartridge positioning to work with zoom and different screen sizes
+    
+    * fix: resolve layout issues in 404 error screen (YOU DIED page)
+    
+    * fix(ui): remove overlapping text and align respawn button
+    
+    * Update README.md
+    
+    * intialized light/dark theme based on users system theme
+    
+    * feat: implement arcade-style leaderboard page
+    
+    Create responsive arcade cabinet component
+    
+    Add leaderboard table with FFCS/NON-FFCS filtering
+    
+    * feat: implement arcade-style leaderboard page (#6)
+    
+    - Create responsive arcade cabinet component
+    - Add leaderboard table with FFCS/NON-FFCS filtering
+    
+    * feat: created pixel-style GalleryPage with interactive polaroids (#8)
+    
+    * Added the background, grid lines, logos and the gallery book page
+    * Gallery page layout done.
+    * Implemented pagination
+    * Implemented Gallery window pane
+    * Gallery page
+    * Completed Gallery
+    
+    * feat(pages): add loading and about us pages for club website (#9)
+    
+    * Implemented a responsive loading page with animated clouds, and an about us page with club info and layout styling
+    * Co-authored-by: Mannat Jaiswal <136169518+iammannat03@users.noreply.github.com>
+    
+    * style: intialized light/dark theme based on users system theme (#7)
+    
+    * aligned it properly and centered the texts
+    
+    * feat: update boards cards with new names and adjust text size and content in the loading page
+    
+    * feat: update event details and descriptions
+    
+    * feat: update card alignment to match Figma; add Mario track and character elements (#13)
+    
+    * feat(pages): add loading and about us pages for club website
+    
+    Implemented a responsive loading page with animated clouds,
+    and an about us page with club info and layout styling
+    
+    * feat(game-section): update card alignment to match Figma; add Mario track and character elements
+    
+    * Social page work (#15)
+    
+    * Your message
+    
+    * page.tsx
+    
+    test commit
+    
+    * Icons aligned and resized
+    
+    * added assets for social
+    
+    * laid out placeholder links for the icons
+    
+    * linked the icons to the proper MIC socials
+    
+    * progress on the pipes and icons
+    
+    * add more clouds and resized pip head
+    
+    * pipes fixed and logos repositioned, also clouds touchups + home page redirect
+    
+    * dark/light toggle switch
+    
+    * final touchups on positions and better d/l toggle anim
+    
+    * toggle switch removed and bird is made the toggle switch, also added some stars in the bg
+    
+    ---------
+    
+    Co-authored-by: GR <grvig06@gmail.com>
+    
+    * fix: main page and loading page
+    
+    * fix: social page
+    
+    * gallery page and projects page
+    
+    * feat: update content on About Us page to enhance description of MIC activities
+    
+    * feat: Added board pictures and refactor code structure for improved readability and maintainability
+    
+    * feat: nav bar
+    
+    * fix: build errors
+    
+    ---------
+    
+    Co-authored-by: ren-pillai30 <aryanpillai8a@gmail.com>
+    Co-authored-by: rdx40 <ivanjaison@gmail.com>
+    Co-authored-by: rohitmichael-alt <rohitmichael13@gmail.com>
+    Co-authored-by: Mannat Jaiswal <136169518+iammannat03@users.noreply.github.com>
+    Co-authored-by: VedantAmal <amalvedant@gmail.com>
+    Co-authored-by: AvikRay <avikray1001@gmail.com>
+    Co-authored-by: Tarang Gupta <taranggupta3108@gmail.com>
+    Co-authored-by: Raksh-iscool <rakshana3110@gmail.com>
+    Co-authored-by: V Rakshana <139635414+Raksh-iscool@users.noreply.github.com>
+    Co-authored-by: Rohan <rohan1c47@gmail.com>
+    Co-authored-by: GR <grvig06@gmail.com>
+
+[33mcommit aa24e2e62964d4303d6bd13db41ad1818fc92f0d[m
+Merge: 92d6598 27044f1
+Author: Mithil Girish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 3 19:46:21 2025 +0530
+
+    Merge branch 'main' into main
+
+[33mcommit 27044f11b56a3d867046622cb490b6f7355283cc[m
+Author: Mithil Girish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 3 19:11:12 2025 +0530
+
+    leads page  (#3)
+    
+    leads page
+    
+    ---------
+    
+    Co-authored-by: rohitmichael-alt <rohitmichael13@gmail.com>
+    Co-authored-by: sakshi <sakshi.sb@gmail.com>
+
+[33mcommit 92d65989c5f022b35126861b436dcc354999156c[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 3 18:24:28 2025 +0530
+
+    fix: build errors
+
+[33mcommit 1d1da2041aa53e4bb8a6c33f977459027b4de0df[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 3 18:05:12 2025 +0530
+
+    feat: nav bar
+
+[33mcommit f6d5f2e5cb5001961d1c70965df65ab380b130d9[m
+Author: Mannat Jaiswal <136169518+iammannat03@users.noreply.github.com>
+Date:   Sun Aug 3 17:53:16 2025 +0530
+
+    chore: Merge private repo (#2)
+    
+    * Changed font, applied gradient background and boxes for events. Need to add grid layout,pacman,ghosts and do formatting
+    
+    * Changed font, applied gradient background and boxes for events. Need to add grid layout,pacman,ghosts and do formatting
+    
+    * add landing page
+    
+    * Changed borders from round to sharp, changed font for info text
+    
+    * Your descriptive commit message
+    
+    * Your descriptive commit message
+    
+    * Your descriptive commit message
+    
+    * commit done
+    
+    * hey there
+    
+    * finsihed ig
+    
+    * hey there
+    
+    * applied hover effect,need to change fonts, apply design
+    
+    * hey there
+    
+    * add landing page
+    
+    * hey guys dark almost done
+    
+    * yup
+    
+    * cloud done ig
+    
+    * pixelated corners added
+    
+    * update readme and cartridge position
+    
+    * added infinite animation for pellets, need to fix pacman and download ghosts
+    
+    * added ghosts, did some layout formatting
+    
+    * reviewed my mistakes and fixed the reptition of team member card and changed the name from meettheteampage to meettheboard page
+    
+    * added pacman gif, added borders
+    
+    * border work
+    
+    * added hover effect(again), added overlay for enlarged cards
+    
+    * made a copy for the light mode
+    
+    * tried reverting files and cleaning up
+    
+    * demo
+    
+    * bug fix and improvements: events page and leads page
+    
+    * Fix:Fix cartridge positioning to work with zoom and different screen sizes
+    
+    * fix: resolve layout issues in 404 error screen (YOU DIED page)
+    
+    * fix(ui): remove overlapping text and align respawn button
+    
+    * Update README.md
+    
+    * intialized light/dark theme based on users system theme
+    
+    * feat: implement arcade-style leaderboard page
+    
+    Create responsive arcade cabinet component
+    
+    Add leaderboard table with FFCS/NON-FFCS filtering
+    
+    * feat: implement arcade-style leaderboard page (#6)
+    
+    - Create responsive arcade cabinet component
+    - Add leaderboard table with FFCS/NON-FFCS filtering
+    
+    * feat: created pixel-style GalleryPage with interactive polaroids (#8)
+    
+    * Added the background, grid lines, logos and the gallery book page
+    * Gallery page layout done.
+    * Implemented pagination
+    * Implemented Gallery window pane
+    * Gallery page
+    * Completed Gallery
+    
+    * feat(pages): add loading and about us pages for club website (#9)
+    
+    * Implemented a responsive loading page with animated clouds, and an about us page with club info and layout styling
+    * Co-authored-by: Mannat Jaiswal <136169518+iammannat03@users.noreply.github.com>
+    
+    * style: intialized light/dark theme based on users system theme (#7)
+    
+    * aligned it properly and centered the texts
+    
+    * feat: update boards cards with new names and adjust text size and content in the loading page
+    
+    * feat: update event details and descriptions
+    
+    * feat: update card alignment to match Figma; add Mario track and character elements (#13)
+    
+    * feat(pages): add loading and about us pages for club website
+    
+    Implemented a responsive loading page with animated clouds,
+    and an about us page with club info and layout styling
+    
+    * feat(game-section): update card alignment to match Figma; add Mario track and character elements
+    
+    * Social page work (#15)
+    
+    * Your message
+    
+    * page.tsx
+    
+    test commit
+    
+    * Icons aligned and resized
+    
+    * added assets for social
+    
+    * laid out placeholder links for the icons
+    
+    * linked the icons to the proper MIC socials
+    
+    * progress on the pipes and icons
+    
+    * add more clouds and resized pip head
+    
+    * pipes fixed and logos repositioned, also clouds touchups + home page redirect
+    
+    * dark/light toggle switch
+    
+    * final touchups on positions and better d/l toggle anim
+    
+    * toggle switch removed and bird is made the toggle switch, also added some stars in the bg
+    
+    ---------
+    
+    Co-authored-by: GR <grvig06@gmail.com>
+    
+    * fix: main page and loading page
+    
+    * fix: social page
+    
+    * gallery page and projects page
+    
+    * feat: update content on About Us page to enhance description of MIC activities
+    
+    * feat: Added board pictures and refactor code structure for improved readability and maintainability
+    
+    ---------
+    
+    Co-authored-by: ren-pillai30 <aryanpillai8a@gmail.com>
+    Co-authored-by: rdx40 <ivanjaison@gmail.com>
+    Co-authored-by: rohitmichael-alt <rohitmichael13@gmail.com>
+    Co-authored-by: Mithil Girish <64325565+mithilgirish@users.noreply.github.com>
+    Co-authored-by: VedantAmal <amalvedant@gmail.com>
+    Co-authored-by: AvikRay <avikray1001@gmail.com>
+    Co-authored-by: Tarang Gupta <taranggupta3108@gmail.com>
+    Co-authored-by: Raksh-iscool <rakshana3110@gmail.com>
+    Co-authored-by: V Rakshana <139635414+Raksh-iscool@users.noreply.github.com>
+    Co-authored-by: Rohan <rohan1c47@gmail.com>
+    Co-authored-by: GR <grvig06@gmail.com>
+
+[33mcommit 84f660f60eff43ac6fe7cc26a3f25ba77e80c8a0[m
+Merge: 864cc77 74bf6e9
+Author: V Rakshana <139635414+Raksh-iscool@users.noreply.github.com>
+Date:   Sun Aug 3 17:42:34 2025 +0530
+
+    Merge pull request #17 from Raksh-iscool/main
+    
+    feat: Added board pictures
+
+[33mcommit 74bf6e9cf00803cc4d0c550c07ed3f34cef53e26[m
+Author: Raksh-iscool <rakshana3110@gmail.com>
+Date:   Sun Aug 3 17:40:58 2025 +0530
+
+    feat: Added board pictures and refactor code structure for improved readability and maintainability
+
+[33mcommit 864cc7749e998dae483142dcd3ba4cc12239acaf[m
+Merge: a22bf3f 78f0334
+Author: V Rakshana <139635414+Raksh-iscool@users.noreply.github.com>
+Date:   Sun Aug 3 17:00:54 2025 +0530
+
+    Merge pull request #16 from Raksh-iscool/main
+    
+    feat: update content on About Us page to enhance description of MIC activities
+
+[33mcommit 78f033450fd11dcc26fbf82c3b8ec8153dabe379[m
+Author: Raksh-iscool <rakshana3110@gmail.com>
+Date:   Sun Aug 3 16:59:16 2025 +0530
+
+    feat: update content on About Us page to enhance description of MIC activities
+
+[33mcommit a22bf3f3660e7c69176612402ddbaa985198bb33[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 3 16:22:11 2025 +0530
+
+    gallery page and projects page
+
+[33mcommit 2f6ce69e2a15cb4dddb63667a670689e0aea5f7f[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 3 16:02:49 2025 +0530
+
+    fix: social page
+
+[33mcommit cc7994dd2f60f351e239fa8b8645f6be47c11a8a[m
+Author: mithilgirish <64325565+mithilgirish@users.noreply.github.com>
+Date:   Sun Aug 3 15:48:47 2025 +0530
+
+    fix: main page and loading page
+
+[33mcommit 87c2fce2289124f6be7b8f889af551667be6164e[m
+Author: Rohan <rohan1c47@gmail.com>
+Date:   Sun Aug 3 14:37:03 2025 +0530
+
+    Social page work (#15)
+    
+    * Your message
+    
+    * page.tsx
+    
+    test commit
+    
+    * Icons aligned and resized
+    
+    * added assets for social
+    
+    * laid out placeholder links for the icons
+    
+    * linked the icons to the proper MIC socials
+    
+    * progress on the pipes and icons
+    
+    * add more clouds and resized pip head
+    
+    * pipes fixed and logos repositioned, also clouds touchups + home page redirect
+    
+    * dark/light toggle switch
+    
+    * final touchups on positions and better d/l toggle anim
+    
+    * toggle switch removed and bird is made the toggle switch, also added some stars in the bg
+    
+    ---------
+    
+    Co-authored-by: GR <grvig06@gmail.com>

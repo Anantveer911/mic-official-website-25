@@ -9,7 +9,7 @@ const ClubLogo = () => (
     style={{
       position: 'absolute',
       left: '50%',
-      top: 150,
+      top: 80,
       transform: 'translateX(-50%)',
       zIndex: 12,
     }}
@@ -40,7 +40,7 @@ const Cube = () => (
       alt="Microsoft Innovations Club Logo"
       width={700}
       height={180}
-      style={{ width: '90vw', maxWidth: 700, height: 'auto', display: 'block' }}
+      style={{ width: '70vw', maxWidth: 500, height: 'auto', display: 'block' }}
       priority
     />
   </div>
@@ -200,7 +200,7 @@ const LandingPage = () => {
         rel="noopener noreferrer"
         className="absolute top-1 right-52 z-50"
       >
-        <Image
+        <Image className = "Animated-Logo"
           src="/insta.svg"
           alt="Instagram Logo"
           width={72}
@@ -215,7 +215,7 @@ const LandingPage = () => {
         rel="noopener noreferrer"
         className="absolute top-1 right-28 z-50"
       >
-        <Image
+        <Image className = "Animated-Logo"
           src="/linkedin.svg"
           alt="LinkedIn Logo"
           width={72}
@@ -230,7 +230,7 @@ const LandingPage = () => {
         rel="noopener noreferrer"
         className="absolute top-1 right-5 z-50"
       >
-        <Image
+        <Image className = "Animated-Logo"
           src="/mail.svg"
           alt="Mail Logo"
           width={72}

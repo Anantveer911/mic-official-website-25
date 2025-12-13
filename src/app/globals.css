@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -165,3 +166,30 @@ body {
             0px calc(100% - 8px)
           );
  }
+
+.Animated-Logo {
+  width: 40px;
+  height: 40px;
+  transition: all 0.15s ease;
+  filter: drop-shadow(0 0 5px cyan);
+  animation: Animated-Logo-Float 2s infinite ease-in-out alternate;
+  cursor: pointer;
+}
+
+/* CRAZY HOVER */
+.Animated-Logo:hover {
+  width: 140px;
+  height: 140px;
+  filter: 
+      drop-shadow(0 0 20px rgb(255, 0, 221))
+      hue-rotate(180deg)
+      brightness(1.6);
+
+}
+
+/* FLOAT when idle */
+@keyframes Animated-Logo-Float {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-6px) rotate(-3deg); }
+}
+
