@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Cartridge from "./Cartridge";
 import Console from "./Console";
 import LoadingPage from "./loading";
+import Console_On from "./Console_On";
 
 export default function Landing() {
   const [inserted, setInserted] = useState(false);
@@ -87,8 +88,18 @@ export default function Landing() {
 
       {/* Centered container with fixed aspect ratio */}
       <div className="relative w-full max-w-[400px] aspect-[3/2] z-10">
-        {/* Console component with poweredOn prop */}
-        <Console poweredOn={poweredOn} />
+
+        <Console />
+
+        <div 
+          className={`absolute inset-0 z-10 transition-opacity duration-300 pointer-events-none ${
+            poweredOn ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <Console_On
+          />
+        </div>  
+
         <Cartridge inserted={inserted} onClick={handleInsert} />
 
         {/* Power and Reset buttons - positioned over the console */}
@@ -97,8 +108,9 @@ export default function Landing() {
             <button
               onClick={handlePower}
               disabled={poweredOn}
-              className={`absolute top-[27%] left-[66%] w-[10%] h-[10%] cursor-pointer z-50 bg-transparent border-none ${poweredOn ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-80'
-                }`}
+              className={`absolute top-[27%] left-[66%] w-[10%] h-[10%] cursor-pointer z-50 bg-transparent border-none ${
+                poweredOn ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-80'
+              }`}
               title="Power"
               type="button"
               aria-label="Power button"
@@ -117,7 +129,7 @@ export default function Landing() {
       {/* Instruction text */}
       {!inserted && (
         <p className="text-white text-sm absolute top-10 left-1/2 -translate-x-1/2 animate-pulse z-50 pointer-events-none select-none">
-          Click the Cartridge to Proceed
+          Click to insert cartridge
         </p>
       )}
 
