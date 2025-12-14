@@ -2,30 +2,82 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface CloudFloatOptions {
   baseTop: string | number;
   baseLeft: string | number;
   amplitude?: number;
   speed?: number;
-  phase?: number; 
+  phase?: number;
 }
 
-// Sample gallery data - replace with your actual images
-const galleryImages = [
-  { id: 1, src: '/images/gallery/cysec.jpeg', alt: 'CyberSecurity Treasure Hunt' },
-  { id: 2, src: '/images/gallery/expo2024.jpeg', alt: 'Club Expo 2024' },
-  { id: 3, src: '/images/gallery/technical-writing.jpeg', alt: 'Technical Writing' },
-  { id: 4, src: '/images/gallery/story.jpeg', alt: 'My Story' },
-  { id: 5, src: '/images/gallery/clubcon1.jpeg', alt: 'Club Con' },
-  { id: 6, src: '/images/gallery/clubcon2.jpeg', alt: 'Club Con'},
-  { id: 7, src: '/images/gallery/clubcon3.jpeg', alt: 'Club Con' },
-  // { id: 8, src: '/images/gallery/event2.jpeg', alt: 'Annual Meet' },
-  // { id: 9, src: '/images/gallery/hackathon2.jpeg', alt: 'Code Sprint' },
-  // { id: 10, src: '/images/gallery/team2.jpeg', alt: 'Department Heads' },
-  // { id: 11, src: '/images/gallery/project2.jpeg', alt: 'Innovation Fair' },
-  // { id: 12, src: '/images/gallery/workshop3.jpeg', alt: 'ML Workshop'},
-];
+const page1Images = {
+  left: {
+    pink: '/images/gallery/cysec.jpeg',
+    green: '/images/gallery/expo2024.jpeg',
+    blue: '/images/gallery/technical-writing.jpeg',
+    yellow: '/images/gallery/story.jpeg',
+  },
+  right: {
+    top: '/images/gallery/clubcon1.jpeg',
+    collage: [
+      '/images/gallery/cysec.jpeg',
+      '/images/gallery/expo2024.jpeg',
+      '/images/gallery/technical-writing.jpeg',
+      '/images/gallery/story.jpeg',
+    ],
+  },
+  filmStrip: [
+    '/images/gallery/expo2024.jpeg',
+    '/images/gallery/technical-writing.jpeg',
+    '/images/gallery/story.jpeg',
+    '/images/gallery/clubcon1.jpeg',
+  ],
+};
+
+const page2Images = {
+  left: {
+    top: '/images/gallery/expo2024.jpeg',
+  },
+  right: {
+    vertical: [
+      '/images/gallery/cysec.jpeg',
+      '/images/gallery/technical-writing.jpeg',
+    ],
+    bottom: [
+      '/images/gallery/story.jpeg',
+      '/images/gallery/clubcon1.jpeg',
+    ],
+  },
+};
+
+const page3Images = {
+  left: {
+    grid: [
+      '/images/gallery/cysec.jpeg',
+      '/images/gallery/expo2024.jpeg',
+      '/images/gallery/technical-writing.jpeg',
+      '/images/gallery/story.jpeg',
+    ],
+    polaroids: [
+      '/images/gallery/clubcon1.jpeg',
+      '/images/gallery/cysec.jpeg',
+      '/images/gallery/expo2024.jpeg',
+      '/images/gallery/technical-writing.jpeg',
+    ],
+  },
+  right: {
+    top: '/images/gallery/story.jpeg',
+    bottom: '/images/gallery/clubcon1.jpeg',
+    strip: [
+      '/images/gallery/cysec.jpeg',
+      '/images/gallery/expo2024.jpeg',
+      '/images/gallery/technical-writing.jpeg',
+      '/images/gallery/story.jpeg',
+    ],
+  },
+};
 
 function useCloudFloat({ baseTop, baseLeft, amplitude = 30, speed = 1, phase = 0 }: CloudFloatOptions) {
   const [top, setTop] = useState(baseTop);
@@ -40,30 +92,22 @@ function useCloudFloat({ baseTop, baseLeft, amplitude = 30, speed = 1, phase = 0
       if (running) requestAnimationFrame(animate);
     }
     animate();
-    return () => {
-      running = false;
-    };
+    return () => { running = false; };
   }, [baseTop, amplitude, speed, phase]);
 
   return { top, left: baseLeft };
 }
 
 const GalleryPage: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const imagesPerPage = 8;
+  const totalPages = 3;
 
-    // Cloud positions
-    const cloudPositions = [
-      useCloudFloat({ baseTop: 100, baseLeft: -50, amplitude: 25, speed: 0.8, phase: 0 }),
-      useCloudFloat({ baseTop: 300, baseLeft: 1200, amplitude: 30, speed: 1.1, phase: 1 }),
-      useCloudFloat({ baseTop: 600, baseLeft: 100, amplitude: 35, speed: 0.9, phase: 2 }),
-      useCloudFloat({ baseTop: 800, baseLeft: 1000, amplitude: 28, speed: 1.2, phase: 3 }),
-      useCloudFloat({ baseTop: 1100, baseLeft: 200, amplitude: 32, speed: 1.0, phase: 4 }),
-      useCloudFloat({ baseTop: 1300, baseLeft: 900, amplitude: 27, speed: 1.3, phase: 5 }),
-      useCloudFloat({ baseTop: 1500, baseLeft: 50, amplitude: 30, speed: 0.85, phase: 6 }),
-    ];
+  const cloudPositions = [
+    useCloudFloat({ baseTop: 100, baseLeft: -50, amplitude: 25, speed: 0.8, phase: 0 }),
+    useCloudFloat({ baseTop: 300, baseLeft: 1200, amplitude: 30, speed: 1.1, phase: 1 }),
+    useCloudFloat({ baseTop: 600, baseLeft: 100, amplitude: 35, speed: 0.9, phase: 2 }),
+  ];
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -73,264 +117,458 @@ const GalleryPage: React.FC = () => {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  useEffect(() => {
-    const style = document.createElement('style');
-    
-    document.head.appendChild(style);
-
-    document.body.style.margin = '0';
-    document.body.style.padding = '0';
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-
-    const preventZoom = (e: WheelEvent) => {
-      if (e.ctrlKey) e.preventDefault();
-    };
-    const preventKeyboardZoom = (e: KeyboardEvent) => {
-      if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
-        e.preventDefault();
-      }
-    };
-
-    document.addEventListener('wheel', preventZoom, { passive: false });
-    document.addEventListener('keydown', preventKeyboardZoom);
-
-    return () => {
-      document.removeEventListener('wheel', preventZoom);
-      document.removeEventListener('keydown', preventKeyboardZoom);
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      if (document.head.contains(style)) {
-        document.head.removeChild(style);
-      }
-    };
-  }, []);
-
-  const getThemeColors = () => {
-    return isDarkMode
-      ? {
-        background: "linear-gradient(to bottom, #00040d 0%, #002855 100%)",
-        notebookBg: "#FCF3E3",
-        textColor: "text-white",
-        gridOpacity: "rgba(255, 255, 255, 0.1)"
-      }
-      : {
-        background: "linear-gradient(to bottom, #e0f2fe 0%, #87ceeb 100%)",
-        notebookBg: "#FCF3E3",
-        textColor: "text-gray-900",
-        gridOpacity: "rgba(255, 255, 255, 0.3)"
-      };
+  const pageVariants = {
+    initial: {
+      rotateY: -90,
+      opacity: 0,
+      transformOrigin: "center left",
+    },
+    animate: {
+      rotateY: 0,
+      opacity: 1,
+      transition: { duration: 0.6, type: "spring" as const, stiffness: 50 }
+    },
+    exit: {
+      rotateY: 90,
+      opacity: 0,
+      transition: { duration: 0.4 }
+    }
   };
 
-  const themeColors = getThemeColors();
+  const renderDoublePageSpread = () => {
+    switch(currentPage) {
+      case 1:
+        return (
+          <div className="flex w-full h-full">
+            <div className="w-1/2 h-full relative p-4 flex flex-col items-center">
+                <h1 className="font-press-start text-3xl md:text-4xl text-center mb-4 tracking-widest text-gray-800 mt-4">
+                    GALLERY
+                </h1>
+                <div className="relative w-full h-full">
+                    <div className="absolute top-10 left-0 w-40 h-52 z-10 hover:z-50 hover:scale-105 transition-all duration-300 group">
+                        <div className="absolute inset-0 z-0 pointer-events-none">
+                            <Image src="/images/gallery/frame1.png" fill alt="frame" className="object-contain" />
+                        </div>
+                        <div className="absolute top-[8%] left-[10%] w-[80%] h-[65%] bg-gray-200 z-10 overflow-hidden">
+                            <Image src={page1Images.left.pink} fill alt="img" className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
 
-  // Calculate pagination
-  const totalPages = Math.ceil(galleryImages.length / imagesPerPage);
-  const startIndex = (currentPage - 1) * imagesPerPage;
-  const endIndex = startIndex + imagesPerPage;
-  const currentImages = galleryImages.slice(startIndex, endIndex);
+                    <div className="absolute top-12 right-16 w-40 h-52 z-10 hover:z-50 hover:scale-105 transition-all duration-300 group">
+                        <div className="absolute inset-0 z-0 pointer-events-none">
+                            <Image src="/images/gallery/frame2.png" fill alt="frame" className="object-contain" />
+                        </div>
+                        <div className="absolute top-[8%] left-[10%] w-[80%] h-[65%] bg-gray-200 z-10 overflow-hidden">
+                            <Image src={page1Images.left.green} fill alt="img" className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+                    <div className="absolute bottom-12 left-4 w-44 h-56 z-20 hover:z-50 hover:scale-105 transition-all duration-300 group">
+                        <div className="absolute inset-0 z-0 pointer-events-none">
+                            <Image src="/images/gallery/frame3.png" fill alt="frame" className="object-contain" />
+                        </div>
+                        <div className="absolute top-[8%] left-[10%] w-[80%] h-[65%] bg-gray-200 z-10 overflow-hidden">
+                            <Image src={page1Images.left.blue} fill alt="img" className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
 
-  const handlePrevPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
+                    <div className="absolute bottom-7 right-10 w-44 h-56 z-20 hover:z-50 hover:scale-105 transition-all duration-300 group">
+                        <div className="absolute inset-0 z-0 pointer-events-none">
+                            <Image src="/images/gallery/frame4.png" fill alt="frame" className="object-contain" />
+                        </div>
+                        <div className="absolute top-[8%] left-[10%] w-[80%] h-[65%] bg-gray-200 z-10 overflow-hidden">
+                            <Image src={page1Images.left.yellow} fill alt="img" className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
+                    <div className="absolute top-[8%] right-[12%] w-16 h-8 z-20 hover:scale-110 transition-transform">
+                       <Image src="/images/gallery/flag.png" fill alt="flag" className="object-contain" />
+                   </div>
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
+                   <div className="absolute bottom-[8%] right-[41%] w-10 h-10 z-20 hover:scale-110 transition-transform hover:rotate-12">
+                       <Image src="/images/gallery/heart.png" fill alt="heart" className="object-contain" />
+                   </div>
 
-  return (
-    <div className="h-screen w-full relative overflow-hidden"
-      style={{
-        backgroundImage: `
-          linear-gradient(to right, ${themeColors.gridOpacity} 1px, transparent 1px),
-          linear-gradient(to bottom, ${themeColors.gridOpacity} 1px, transparent 1px),
-          ${themeColors.background}
-        `,
-        backgroundSize: "30px 30px, 30px 30px, 100% 100%",
-        backgroundRepeat: "repeat, repeat, no-repeat",
-        backgroundPosition: "top left, top left, center",
-        userSelect: "none",
-      }}>
-      
-      {/* Floating Clouds */}
-      {cloudPositions.map((pos, i) => (
-        <Image
-          key={i}
-          src={`/images/cloud${(i % 3) + 1}.png`}
-          alt={`Cloud ${i + 1}`}
-          width={300}
-          height={180}
-          className="pointer-events-none"
-          style={{ position: 'absolute', ...pos, zIndex: 1, opacity: 0.7 }}
-        />
-      ))}
-
-      {/* Main Content */}
-      <div className="relative z-10 flex items-center justify-center h-full p-4">
-        {/* Notebook/Gallery Container */}
-        <div 
-          className="relative w-full max-w-6xl h-[90vh] rounded-lg shadow-2xl overflow-hidden flex flex-col"
-          style={{
-            backgroundColor: themeColors.notebookBg,
-            backgroundImage: `
-              url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4b996' fill-opacity='0.1'%3E%3Cpath d='M0 0h30v30H0V0zm15 15h15v15H15V15z'/%3E%3C/g%3E%3C/svg%3E")
-            `,
-            border: "8px solid #8b4513",
-            borderRadius: "15px",
-          }}
-        >
-          {/* Spiral Binding */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-amber-700 to-amber-600 flex flex-col items-center justify-start pt-8 space-y-6 z-10">
-            {[...Array(12)].map((_, i) => (
-              <div key={i} className="w-6 h-6 bg-amber-800 rounded-full shadow-inner border-2 border-amber-900"></div>
-            ))}
-          </div>
-
-          {/* Page Content */}
-          <div className="ml-12 p-6 flex-1 flex flex-col">
-            {/* Header */}
-            <div className="flex items-center mb-6">
-              <h1 className="font-press-start text-2xl md:text-4xl text-amber-900">
-                GALLERY
-              </h1>
-              <div className="ml-6 flex items-center space-x-2">
-                <div className="w-4 h-4 bg-red-500 rounded-full shadow-lg"></div>
-                <div className="w-4 h-4 bg-blue-500 rounded-full shadow-lg"></div>
-                <div className="w-4 h-4 bg-green-500 rounded-full shadow-lg"></div>
-              </div>
+                   <div className="absolute top-[40%] left-[3%] w-12 h-12 z-20 hover:scale-110 transition-transform hover:-rotate-12">
+                       <Image src="/images/gallery/star.png" fill alt="star" className="object-contain" />
+                   </div>
+                </div>
             </div>
 
-            {/* Photo Gallery Grid - Fixed height container */}
-            <div className="flex-1 flex items-center justify-center mb-6 overflow-y-auto">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-                {currentImages.map((image, index) => (
-                  <div
-                    key={image.id}
-                    className="relative group cursor-pointer transform transition-all duration-300 hover:scale-105"
-                    onClick={() => setSelectedImage(image.id)}
-                  >
-                    {/* Polaroid Frame */}
-                    <div 
-                      className="bg-white p-2 pb-8 shadow-lg transition-transform duration-300"
-                      style={{
-                        transform: `rotate(${(index % 4 - 1.5) * 2}deg)`,
-                        width: '200px', // Increased size
-                        height: '250px' // Increased size
-                      }}
-                    >
-                      <div className="w-full h-48 bg-gray-200 overflow-hidden">
+            <div className="w-1/2 h-full relative">
+                <div className="absolute top-[6%] left-[12%] w-[42%] aspect-square z-20">
+                    <div className="absolute top-[3%] left-[73%] w-10 h-10 z-40 rotate-[-12deg] hover:scale-110 transition-transform">
+                      <Image
+                        src="/starIcon.png"
+                        fill
+                        alt="star"
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="absolute top-[10%] left-[10%] w-[80%] h-[80%] bg-black p-[8px] overflow-hidden cut-edges">
+                      <div className="relative w-full h-full overflow-hidden cut-edges">
                         <Image
-                          src={image.src}
-                          alt={image.alt}
-                          width={200} // Increased size
-                          height={160} // Increased size
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+';
-                          }}
+                          src={page1Images.right.top}
+                          fill
+                          alt="img"
+                          className="object-cover hover:scale-110 transition-transform duration-500"
                         />
                       </div>
-                      <div className="mt-2 text-center">
-                        <p className="font-press-start text-gray-700 text-sm leading-tight">{image.alt}</p>
-                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+                </div>
 
-            {/* Pagination Controls */}
-            <div className="flex items-center justify-center space-x-4 mt-auto">
-              <button
-                onClick={handlePrevPage}
-                disabled={currentPage === 1}
-                className={`px-4 py-2 rounded-lg font-press-start text-xs transition-all duration-300 ${
-                  currentPage === 1
-                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    : 'bg-amber-600 text-white hover:bg-amber-700 transform hover:scale-105'
-                }`}
-              >
-                ← PREV
-              </button>
+                <div className="absolute bottom-[6%] left-[15%] w-[68%] h-[38%] z-20">
+                    <div className="absolute bottom-[4%] left-[93%] w-12 h-12 z-40 rotate-[8deg] hover:rotate-[14deg] transition-transform">
+                      <Image
+                        src="/mushroom.svg"
+                        fill
+                        alt="mushroom"
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="w-full h-full bg-black p-[4px] overflow-hidden cut-edges">
+                        <div className="relative w-full h-full bg-black p-[3px] cut-edges">
+                            <div className="absolute top-0 left-0 w-[55%] h-[48%] bg-black p-[2px] cut-edges">
+                              <div className="relative w-full h-full overflow-hidden">
+                                <Image src={page1Images.right.collage[0]} fill className="object-cover" alt="" />
+                              </div>
+                            </div>
+                            <div className="absolute top-0 right-0 w-[42%] h-[48%] bg-black p-[2px] cut-edges">
+                              <div className="relative w-full h-full overflow-hidden">
+                                <Image src={page1Images.right.collage[1]} fill className="object-cover" alt="" />
+                              </div>
+                            </div>
+                            <div className="absolute bottom-0 left-0 w-[50%] h-[50%] bg-black p-[2px] cut-edges">
+                              <div className="relative w-full h-full overflow-hidden">
+                                <Image src={page1Images.right.collage[2]} fill className="object-cover" alt="" />
+                              </div>
+                            </div>
+                            <div className="absolute bottom-0 right-0 w-[55%] h-[52%] bg-black p-[2px] cut-edges">
+                              <div className="relative w-full h-full overflow-hidden">
+                                <Image src={page1Images.right.collage[3]} fill className="object-cover" alt="" />
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-              {/* Page Numbers */}
-              <div className="flex space-x-2">
-                {[...Array(totalPages)].map((_, index) => {
-                  const page = index + 1;
-                  return (
-                    <button
-                      key={page}
-                      onClick={() => handlePageChange(page)}
-                      className={`w-10 h-10 rounded-lg font-press-start text-xs transition-all duration-300 transform hover:scale-105 ${
-                        currentPage === page
-                          ? 'bg-amber-600 text-white shadow-lg'
-                          : 'bg-amber-200 text-amber-800 hover:bg-amber-300'
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <button
-                onClick={handleNextPage}
-                disabled={currentPage === totalPages}
-                className={`px-4 py-2 rounded-lg font-press-start text-xs transition-all duration-300 ${
-                  currentPage === totalPages
-                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    : 'bg-amber-600 text-white hover:bg-amber-700 transform hover:scale-105'
-                }`}
-              >
-                NEXT →
-              </button>
+                <div className="absolute -top-[25%] left-[65%] w-[42%] h-[115%] rotate-[6deg] z-30">
+                    <div className="absolute top-[68%] right-[2%] w-16 h-16 z-40 rotate-[18deg] hover:translate-x-3 hover:-translate-y-2 transition-transform duration-700">
+                      <Image
+                        src="/plane.svg"
+                        fill
+                        alt="plane"
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="absolute inset-0 pointer-events-none">
+                      <Image
+                        src="/images/gallery/static.png"
+                        fill
+                        alt="film strip"
+                        className="object-contain"
+                      />
+                    </div>
+                </div>
             </div>
           </div>
+        );
 
-          {/* Corner Decorations */}
-          <div className="absolute top-4 right-4 w-8 h-8 bg-yellow-400 rounded-full shadow-lg"></div>
-          <div className="absolute bottom-4 right-4 w-6 h-6 bg-blue-400 rounded-full shadow-lg"></div>
-          <div className="absolute bottom-4 left-16 w-6 h-6 bg-green-400 rounded-full shadow-lg"></div>
+      case 2:
+        return (
+          <div className="flex w-full h-full">
+            <div className="w-1/2 h-full relative">
+              <div className="relative w-[80%] h-[55%] right-[5%]">
+                <div className="relative w-full h-full bg-black p-[4px] cut-edges">
+                  <div className="relative w-full h-full bg-gray-300 overflow-hidden cut-edges">
+                    <Image src={page2Images.left.top} fill alt="event-main" className="object-cover" />
+                  </div>
+                </div>
+                <div className="absolute -top-6 -left-6 w-14 h-14 z-40 rotate-[-12deg]">
+                  <Image src="/plane.svg" fill alt="plane" className="object-contain" />
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-12 h-12 z-40 rotate-[8deg]">
+                  <Image src="/mushroom.svg" fill alt="mushroom" className="object-contain" />
+                </div>
+              </div>
+
+              <div className="relative mt-4 w-full h-[48%]">
+                <div className="absolute top-[7%] left-[40%] -translate-x-1/2 w-[150%] p-[4px] cut-edges">
+                  <div className="relative w-full overflow-hidden cut-edges aspect-[3/1]">
+                    <Image src="/images/gallery/static2.png" fill alt="event-collage" className="object-contain" />
+                  </div>
+                </div>
+                <div className="absolute bottom-[30px] right-[98%] w-16 h-10 z-40">
+                  <Image src="/flag.png" fill alt="flag" className="object-contain" />
+                </div>
+              </div>
+            </div> 
+
+            <div className="w-1/2 h-full relative p-6">
+                <h1 className="font-press-start text-3xl text-center mb-6 tracking-widest text-black">
+                    GALLERY
+                </h1>
+                <div className="relative w-full h-[52%] flex gap-6 left-[12%]">
+                    <div className="w-[58%] h-full flex flex-col gap-4">
+                        <div className="relative flex-1 bg-black p-[4px] cut-edges">
+                            <div className="relative w-full h-full overflow-hidden cut-edges">
+                                <Image src={page2Images.right.vertical[0]} fill className="object-cover" alt="" />
+                            </div>
+                        </div>
+                        <div className="relative flex-1 bg-black p-[4px] cut-edges">
+                            <div className="relative w-full h-full overflow-hidden cut-edges">
+                                <Image src={page2Images.right.vertical[1]} fill className="object-cover" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="absolute left-[-18px] top-[42%] w-10 h-10 z-40 rotate-[-8deg]">
+                      <Image
+                        src="/leafIcon.png"
+                        fill
+                        alt="clover"
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="relative w-[38%] h-full z-30">
+                      <Image
+                        src="/images/gallery/filmstrip1.png"
+                        fill
+                        className="object-contain"
+                        alt="film"
+                      />
+                    </div>
+                </div>
+
+                <div className="relative w-full h-[26%] mt-8 left-[12%]">
+                    <div className="relative w-full h-full bg-black p-[4px] cut-edges flex gap-[4px]">
+                        <div className="relative w-1/2 h-full overflow-hidden cut-edges">
+                            <Image src={page2Images.right.bottom[0]} fill className="object-cover" alt="" />
+                        </div>
+                        <div className="relative w-1/2 h-full overflow-hidden cut-edges">
+                            <Image src={page2Images.right.bottom[1]} fill className="object-cover" alt="" />
+                        </div>
+                    </div>
+                    <div className="absolute -top-4 -right-4 w-10 h-10 z-40 rotate-[12deg]">
+                      <Image
+                        src="/starIcon.png"
+                        fill
+                        alt="star"
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="absolute -bottom-4 -left-4 w-8 h-8 z-40">
+                        <Image src="/heart.svg" fill className="object-contain" alt="heart" />
+                    </div>
+                </div>
+            </div>
+          </div>
+        );
+
+      case 3:
+        return (
+          <div className="flex w-full h-full">
+            <div className="w-1/2 h-full relative p-6">
+                <h1 className="font-press-start text-3xl text-center mb-8 tracking-widest text-black translate-x-[-6%]">
+                    GALLERY
+                </h1>
+                <div className="relative w-full h-[70%] grid grid-cols-2 grid-rows-2 gap-6 px-6 top-[6%] translate-x-[-10%]">
+                    {page3Images.left.grid.map((src, i) => (
+                    <div key={i} className="relative bg-black p-[4px] cut-edges">
+                        <div className="relative w-full h-full overflow-hidden cut-edges">
+                        <Image
+                            src={src}
+                            fill
+                            alt={`gallery-${i}`}
+                            className="object-cover"
+                        />
+                        </div>
+                    </div>
+                    ))}
+                </div>
+                <div className="absolute top-[18%] right-[9%] w-[26%] h-[80%]">
+                    {page3Images.left.polaroids.map((src, i) => (
+                    <div
+                        key={i}
+                        className={`absolute rotate-[${[-8,4,-6,7][i]}deg]`}
+                        style={{ top: `${i * 18}%`, right: i % 2 === 0 ? '6%' : '-2%' }}
+                    >
+                        <div className="bg-white p-2 pb-7 shadow-lg">
+                        <div className="relative w-[115px] aspect-square overflow-hidden">
+                            <Image
+                            src={src}
+                            fill
+                            alt={`polaroid-${i}`}
+                            className="object-cover"
+                            />
+                        </div>
+                        </div>
+                    </div>
+                    ))}
+                </div>
+                <div className="absolute left-[1%] w-12 h-12 z-40 hover:scale-110 transition-transform">
+                  <Image
+                    src="/images/gallery/image.png"
+                    fill
+                    alt="camera"
+                    className="object-contain"
+                  />
+                </div>
+            </div>
+
+            <div className="w-1/2 h-full relative p-6">
+                <div className="absolute top-[8%] left-[15%] w-[88%] h-[44%] bg-black p-[4px]">
+                    <div className="relative w-full h-full overflow-hidden">
+                    <Image
+                        src={page3Images.right.top}
+                        fill
+                        alt="top-big"
+                        className="object-cover"
+                    />
+                    </div>
+                </div>
+                <div className="absolute bottom-[4%] left-[15%] w-[88%] h-[42%] bg-black p-[4px]">
+                    <div className="relative w-full h-full overflow-hidden">
+                    <Image
+                        src={page3Images.right.bottom}
+                        fill
+                        alt="bottom-big"
+                        className="object-cover"
+                    />
+                    </div>
+                </div>
+                <div className="absolute top-[7%] left-[95%] w-12 h-8 z-40 hover:scale-110 transition-transform">
+                  <Image
+                    src="/flag.png"
+                    fill
+                    alt="flag"
+                    className="object-contain"
+                  />
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none left-[16%]">
+                    <div className="bg-white shadow-xl px-3 py-6">
+                        <div className="flex flex-col gap-3">
+                        {page3Images.right.strip.map((src, i) => (
+                            <div
+                            key={i}
+                            className="relative w-[180px] aspect-[2.6/1] overflow-hidden"
+                            >
+                            <Image
+                                src={src}
+                                fill
+                                alt={`center-${i}`}
+                                className="object-cover"
+                            />
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+                    <div className="absolute bottom-[2%] left-[-5%] w-12 h-8 z-40 hover:scale-110 transition-transform">
+                      <Image
+                        src="/flag.png"
+                        fill
+                        alt="flag"
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="absolute bottom-[4%] right-[-5%] w-12 h-12 z-40 rotate-[6deg] hover:rotate-[12deg] transition-transform">
+                      <Image
+                        src="/mushroom.svg"
+                        fill
+                        alt="mushroom"
+                        className="object-contain"
+                      />
+                    </div>
+                </div>
+            </div>
+          </div>
+        );
+
+      default: return null;
+    }
+  };
+
+  const themeColors = isDarkMode
+    ? { bg: "bg-slate-900", grid: "opacity-10" }
+    : { bg: "bg-blue-100", grid: "opacity-20" };
+
+  return (
+    <div className={`h-screen w-full relative overflow-hidden ${themeColors.bg}`}>
+      
+      <div className={`absolute inset-0 ${themeColors.grid}`} 
+           style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
+      />
+
+      {cloudPositions.map((pos, i) => (
+        <motion.div key={i} animate={{ y: [0, 10, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          style={{ position: 'absolute', top: pos.top, left: pos.left, pointerEvents: 'none', zIndex: 5 }}>
+           <Image src="/images/cloud1.png" width={200} height={120} alt="cloud" className="opacity-80" />
+        </motion.div>
+      ))}
+
+      <div className="relative z-10 flex items-center justify-center h-full w-full perspective-1000">
+        <div
+          className="
+            origin-center
+            transition-transform
+            duration-300
+            scale-[0.5]
+            sm:scale-[0.6]
+            md:scale-[0.7]
+            [@media(min-width:900px)]:scale-[0.9]
+            [@media(min-width:850px)]:scale-[0.8]
+            lg:scale-[1]
+            xl:scale-[1.05]
+            "
+        >
+          <div
+            className="relative"
+            style={{ width: 1000, height: 700 }}
+          >
+            <div className="absolute right-0 translate-x-[55%] top-[12%] flex flex-col gap-4 z-0">
+              {[1, 2, 3].map((pageNum) => (
+                <button
+                  key={pageNum}
+                  onClick={() => setCurrentPage(pageNum)}
+                  className={`relative w-24 h-24 transition-transform duration-300 ${
+                    currentPage === pageNum ? 'translate-x-4' : 'hover:translate-x-2'
+                  }`}
+                >
+                  <Image
+                    src="/images/gallery/arrow.png"
+                    fill
+                    alt={`Tab ${pageNum}`}
+                    className="object-contain"
+                  />
+                </button>
+              ))}
+            </div>
+
+            <div className="absolute inset-0 z-10 pointer-events-none">
+              <Image
+                src="/images/gallery/notebook.png"
+                fill
+                alt="Notebook Background"
+                className="object-contain drop-shadow-2xl"
+                priority
+              />
+            </div>
+
+            <div className="absolute inset-0 z-20 pt-[5%] pb-[5%] px-[6%]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentPage}
+                  variants={pageVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className="w-full h-full"
+                >
+                  {renderDoublePageSpread()}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Modal for enlarged image */}
-      {selectedImage && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div className="relative max-w-4xl max-h-full bg-white p-4 rounded-lg">
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold hover:bg-red-600 z-10"
-            >
-              ×
-            </button>
-            {(() => {
-              const image = galleryImages.find(img => img.id === selectedImage);
-              return image ? (
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={800}
-                  height={600}
-                  className="max-w-full max-h-[80vh] object-contain rounded" // Adjusted max height for modal
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+';
-                  }}
-                />
-              ) : null;
-            })()}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
